@@ -1,0 +1,24 @@
+<UserControl x:Class="Dolunay2Launcher.Controls.PageHeader"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Name="Root">
+    <Grid>
+        <DockPanel LastChildFill="False">
+            <Border DockPanel.Dock="Left" Width="54" Height="54" Background="#00FFFFFF" BorderThickness="0" Margin="0,0,16,0">
+                <Path x:Name="HeaderIcon" Style="{StaticResource VectorIcon}" Width="24" Height="24" Fill="#FFE8D6AE" />
+            </Border>
+            <StackPanel DockPanel.Dock="Left" VerticalAlignment="Center">
+                <TextBlock x:Name="TitleText" FontWeight="Bold" FontSize="30" Foreground="#FFF2E9D8" />
+                <TextBlock x:Name="SubText" FontSize="14" Foreground="{DynamicResource Theme.Dim}" Margin="0,2,0,0" />
+            </StackPanel>
+            <Button x:Name="OpenButton" DockPanel.Dock="Right" Style="{StaticResource OutlineButton}"
+                    VerticalAlignment="Center" Visibility="Collapsed" Click="OpenButton_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.OpenInNew}" Width="14" Height="14"
+                          Fill="#FFE8D6AE" Margin="0,0,8,0" />
+                    <TextBlock x:Name="OpenText" FontSize="14" FontWeight="Bold" Foreground="#FFF2E9D8" VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+        </DockPanel>
+    </Grid>
+</UserControl>

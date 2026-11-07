@@ -1,0 +1,14 @@
+# Build ciktilari
+bin/
+obj/
+.vs/
+*.user
+*.suo
+
+# Yerel calisma dosyalari
+settings.json
+Logs/
+*.log
+
+# Yerel gelistirme sunucu adresi (patcher.ini.example'i kopyalayin)
+patcher.ini

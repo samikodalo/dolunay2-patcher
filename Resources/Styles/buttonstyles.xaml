@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp">
+  <Style x:Key="menuButton" TargetType="{x:Type RadioButton}">
+    <Setter Property="Height" Value="50" />
+    <Setter Property="Margin" Value="-5,0,0,5" />
+    <Setter Property="Background" Value="#00FFFFFF" />
+    <Setter Property="Foreground" Value="{StaticResource plainTextColor2}" />
+    <Setter Property="BorderBrush" Value="#00FFFFFF" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type RadioButton}">
+          <Border Background="{TemplateBinding Control.Background}" BorderThickness="4,0,0,0" BorderBrush="{TemplateBinding Control.BorderBrush}">
+            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Style.Triggers>
+      <Trigger Property="UIElement.IsMouseOver" Value="True">
+        <Setter Property="Margin" Value="0,0,0,5" />
+        <Setter Property="Background" Value="{StaticResource panelOverColor}" />
+        <Setter Property="Foreground" Value="{StaticResource plainTextColor1}" />
+        <Setter Property="BorderBrush" Value="{Binding Path=Tag, RelativeSource={RelativeSource Self}}" />
+      </Trigger>
+      <Trigger Property="ToggleButton.IsChecked" Value="True">
+        <Setter Property="Margin" Value="0,0,0,5" />
+        <Setter Property="Background" Value="{StaticResource panelActiveColor}" />
+        <Setter Property="Foreground" Value="{StaticResource plainTextColor1}" />
+        <Setter Property="BorderBrush" Value="{Binding Path=Tag, RelativeSource={RelativeSource Self}}" />
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+  <Style x:Key="menuButtonText" TargetType="{x:Type TextBlock}">
+    <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}" />
+    <Setter Property="FontFamily" Value="{StaticResource AppFont}" />
+    <Setter Property="FontWeight" Value="Medium" />
+    <Setter Property="FontSize" Value="13.5" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+  <Style x:Key="NormalButtonStyle" TargetType="{x:Type Button}">
+    <Setter Property="Background" Value="{DynamicResource Theme.Button}" />
+    <Setter Property="FrameworkElement.Cursor" Value="Hand" />
+    <Setter Property="BorderBrush" Value="#00FFFFFF" />
+    <Setter Property="Height" Value="50" />
+    <Setter Property="Width" Value="150" />
+    <Setter Property="Foreground" Value="#FFFFFFFF" />
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Button}">
+          <Border Name="border" Background="{TemplateBinding Control.Background}" CornerRadius="5">
+            <ContentPresenter Name="ButtonContentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center">
+              <FrameworkElement.Resources>
+                <ResourceDictionary>
+                  <Style x:Key="{x:Type TextBlock}" TargetType="{x:Type TextBlock}">
+                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                  </Style>
+                  <Style x:Key="{x:Type Image}" TargetType="{x:Type Image}">
+                    <Setter Property="Width" Value="10" />
+                    <Setter Property="Margin" Value="10" />
+                  </Style>
+                </ResourceDictionary>
+              </FrameworkElement.Resources>
+            </ContentPresenter>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Style.Triggers>
+      <Trigger Property="UIElement.IsMouseOver" Value="True">
+        <Setter Property="Background" Value="{StaticResource buttonHighlightColor1}" />
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+  <Style x:Key="RedButtonStyle" BasedOn="{StaticResource NormalButtonStyle}" TargetType="{x:Type Button}">
+    <Setter Property="Background" Value="#FF8B0000" />
+    <Style.Triggers>
+      <Trigger Property="UIElement.IsMouseOver" Value="True">
+        <Setter Property="Background" Value="{DynamicResource buttonHighlightColor2}" />
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+  <Style x:Key="PlayButtonStyle" TargetType="{x:Type Button}">
+    <Setter Property="FrameworkElement.Cursor" Value="Hand" />
+    <Setter Property="Height" Value="50" />
+    <Setter Property="Width" Value="Auto" />
+    <Setter Property="Background" Value="{StaticResource PlayButtonReadyBrush}" />
+    <Setter Property="Foreground" Value="{StaticResource PlayButtonReadyForeground}" />
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Button}">
+          <Border Name="frame" CornerRadius="6" BorderThickness="0" BorderBrush="#00000000" Padding="0">
+            <Grid>
+              <Border Name="border" CornerRadius="4" Background="{TemplateBinding Control.Background}" />
+              <Border Name="hoverArt" CornerRadius="4" Opacity="0" Background="{StaticResource PlayButtonHoverBrush}" />
+              <Border Name="hoverArtError" CornerRadius="4" Opacity="0" Background="{StaticResource PlayButtonErrorHoverBrush}" />
+              <ContentPresenter Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <FrameworkElement.Resources>
+                  <ResourceDictionary>
+                    <Style x:Key="{x:Type TextBlock}" TargetType="{x:Type TextBlock}">
+                      <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                    </Style>
+                    <Style x:Key="{x:Type Image}" TargetType="{x:Type Image}">
+                      <Setter Property="Width" Value="10" />
+                      <Setter Property="Margin" Value="10" />
+                    </Style>
+                  </ResourceDictionary>
+                </FrameworkElement.Resources>
+              </ContentPresenter>
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="UIElement.IsMouseOver" Value="True" />
+                <Condition Property="FrameworkElement.Tag" Value="Ready" />
+              </MultiTrigger.Conditions>
+              <TriggerBase.EnterActions>
+                <BeginStoryboard>
+                  <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="hoverArt" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.15" />
+                  </Storyboard>
+                </BeginStoryboard>
+              </TriggerBase.EnterActions>
+              <TriggerBase.ExitActions>
+                <BeginStoryboard>
+                  <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="hoverArt" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2" />
+                  </Storyboard>
+                </BeginStoryboard>
+              </TriggerBase.ExitActions>
+            </MultiTrigger>
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="UIElement.IsMouseOver" Value="True" />
+                <Condition Property="FrameworkElement.Tag" Value="Error" />
+              </MultiTrigger.Conditions>
+              <TriggerBase.EnterActions>
+                <BeginStoryboard>
+                  <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="hoverArtError" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.15" />
+                  </Storyboard>
+                </BeginStoryboard>
+              </TriggerBase.EnterActions>
+              <TriggerBase.ExitActions>
+                <BeginStoryboard>
+                  <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="hoverArtError" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2" />
+                  </Storyboard>
+                </BeginStoryboard>
+              </TriggerBase.ExitActions>
+            </MultiTrigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter TargetName="border" Property="UIElement.Opacity" Value="0.85" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="AlertStyle" TargetType="{x:Type Border}">
+    <Setter Property="Background" Value="#FFFFFFFF" />
+    <Style.Triggers>
+      <Trigger Property="UIElement.IsMouseOver" Value="False">
+        <Setter Property="UIElement.Opacity" Value="1" />
+      </Trigger>
+      <Trigger Property="UIElement.IsMouseOver" Value="True">
+        <Setter Property="UIElement.Opacity" Value="0.7" />
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+  <Style x:Key="SlideShowButtonsStyle" TargetType="{x:Type Rectangle}">
+    <Style.Triggers>
+      <Trigger Property="UIElement.IsMouseOver" Value="False">
+        <Setter Property="UIElement.Opacity" Value="1" />
+      </Trigger>
+      <Trigger Property="UIElement.IsMouseOver" Value="True">
+        <Setter Property="UIElement.Opacity" Value="0.7" />
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+  <Style x:Key="CustomScrollBarStyle" TargetType="{x:Type ScrollBar}">
+    <Setter Property="Background" Value="#FFFFFFFF" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Width" Value="10" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ScrollBar}">
+          <Border Background="{TemplateBinding Control.Background}" CornerRadius="5" />
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+</ResourceDictionary>

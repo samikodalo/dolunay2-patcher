@@ -1,0 +1,399 @@
+﻿<views:PageViewBase x:Class="Dolunay2Launcher.Views.SettingsView"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:views="clr-namespace:Dolunay2Launcher.Views"
+                    FontFamily="{StaticResource AppFont}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ThinScrollBar}" />
+            <CornerRadius x:Key="OutlineButton.Radius">2</CornerRadius>
+            <CornerRadius x:Key="SettingsTextBox.Radius">2</CornerRadius>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="24" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Style="{StaticResource PageCard}" CornerRadius="1" Padding="10" VerticalAlignment="Top">
+            <ListBox x:Name="ListSections" Style="{StaticResource BareListBox}" ItemContainerStyle="{StaticResource SectionMenuItem}"
+                     SelectionChanged="ListSections_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Path Style="{StaticResource VectorIcon}" Width="18" Height="18" Fill="#FFE8D6AE" Margin="0,0,12,0" Data="{Binding Icon}" />
+                            <TextBlock FontSize="15" FontWeight="Bold" Foreground="#FFF2E9D8" VerticalAlignment="Center" Text="{Binding Title}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
+
+        <ScrollViewer x:Name="ScrollContent" Grid.Column="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <Grid Margin="0,0,14,0">
+                <!-- ===== GENEL ===== -->
+                <StackPanel x:Name="SectionGeneral">
+                    <TextBlock Style="{StaticResource SectionHeader}" Tag="set.general" />
+                    <Border Style="{StaticResource SettingRow}">
+                        <DockPanel>
+                            <ComboBox x:Name="ComboLanguage" DockPanel.Dock="Right" Style="{DynamicResource ComboBoxStyle}" ItemContainerStyle="{StaticResource IconComboBoxItemStyle}"
+                                      Width="240" Height="38" VerticalAlignment="Center" DisplayMemberPath="Value"
+                                      SelectionChanged="ComboLanguage_SelectionChanged" />
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SettingTitle}" Tag="g.lang" />
+                                <TextBlock Style="{StaticResource SettingDescription}" Tag="g.langd" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                    <Border Style="{StaticResource SettingRow}">
+                        <DockPanel>
+                            <CheckBox x:Name="ToggleStartWithWindows" DockPanel.Dock="Right" Style="{StaticResource ToggleSwitch}"
+                                      VerticalAlignment="Center" Click="ToggleStartWithWindows_Click" />
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SettingTitle}" Tag="g.win" />
+                                <TextBlock Style="{StaticResource SettingDescription}" Tag="g.wind" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                    <Border Style="{StaticResource SettingRow}">
+                        <DockPanel>
+                            <CheckBox x:Name="ToggleStartMinimized" DockPanel.Dock="Right" Style="{StaticResource ToggleSwitch}"
+                                      VerticalAlignment="Center" Click="ToggleStartMinimized_Click" />
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SettingTitle}" Tag="g.min" />
+                                <TextBlock Style="{StaticResource SettingDescription}" Tag="g.mind" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                    <Border Style="{StaticResource SettingRow}">
+                        <DockPanel>
+                            <CheckBox x:Name="ToggleCloseToTray" DockPanel.Dock="Right" Style="{StaticResource ToggleSwitch}"
+                                      VerticalAlignment="Center" Click="ToggleCloseToTray_Click" />
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SettingTitle}" Tag="g.tray" />
+                                <TextBlock Style="{StaticResource SettingDescription}" Tag="g.trayd" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                    <Border Style="{StaticResource SettingRow}">
+                        <DockPanel>
+                            <CheckBox x:Name="ToggleNotifications" DockPanel.Dock="Right" Style="{StaticResource ToggleSwitch}"
+                                      VerticalAlignment="Center" Click="ToggleNotifications_Click" />
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SettingTitle}" Tag="g.notif" />
+                                <TextBlock Style="{StaticResource SettingDescription}" Tag="g.notifd" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                    <Border Style="{StaticResource SettingRow}">
+                        <DockPanel>
+                            <ComboBox x:Name="ComboReminderLead" DockPanel.Dock="Right" Style="{DynamicResource ComboBoxStyle}" ItemContainerStyle="{StaticResource IconComboBoxItemStyle}"
+                                      Width="240" Height="38" VerticalAlignment="Center" SelectionChanged="ComboReminderLead_SelectionChanged" />
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SettingTitle}" Tag="g.reminder" />
+                                <TextBlock Style="{StaticResource SettingDescription}" Tag="g.reminderd" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                    <Border Style="{StaticResource SettingRow}">
+                        <DockPanel>
+                            <ComboBox x:Name="ComboOnGameLaunch" DockPanel.Dock="Right" Style="{DynamicResource ComboBoxStyle}" ItemContainerStyle="{StaticResource IconComboBoxItemStyle}"
+                                      Width="240" Height="38" VerticalAlignment="Center" SelectionChanged="ComboOnGameLaunch_SelectionChanged" />
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SettingTitle}" Tag="g.launch" />
+                                <TextBlock Style="{StaticResource SettingDescription}" Tag="g.launchd" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                </StackPanel>
+
+                <!-- ===== GORUNUM ===== -->
+                <StackPanel x:Name="SectionAppearance" Visibility="Collapsed">
+                    <TextBlock Style="{StaticResource SectionHeader}" Tag="set.appear" />
+                    <Border Style="{StaticResource SettingRow}">
+                        <DockPanel>
+                            <StackPanel x:Name="ThemeOptions" DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center" />
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Style="{StaticResource SettingTitle}" Tag="a.theme" />
+                                <TextBlock Style="{StaticResource SettingDescription}" Tag="a.themed" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                    <Border Style="{StaticResource SettingRow}">
+                        <DockPanel>
+                            <ComboBox x:Name="ComboWindowSize" DockPanel.Dock="Right" Style="{DynamicResource ComboBoxStyle}" ItemContainerStyle="{StaticResource IconComboBoxItemStyle}"
+                                      Width="240" Height="38" VerticalAlignment="Center" DisplayMemberPath="Label"
+                                      SelectionChanged="ComboWindowSize_SelectionChanged" />
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SettingTitle}" Tag="a.winsize" />
+                                <TextBlock Style="{StaticResource SettingDescription}" Tag="a.winsized" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                    <Border Style="{StaticResource SettingRow}">
+                        <DockPanel>
+                            <CheckBox x:Name="ToggleSidebarExpanded" DockPanel.Dock="Right" Style="{StaticResource ToggleSwitch}"
+                                      VerticalAlignment="Center" Click="ToggleSidebarExpanded_Click" />
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SettingTitle}" Tag="a.expanded" />
+                                <TextBlock Style="{StaticResource SettingDescription}" Tag="a.expandedd" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                    <Border Style="{StaticResource SettingRow}">
+                        <DockPanel>
+                            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                                <Slider x:Name="SliderSidebarTransparency" Style="{StaticResource SettingSlider}" Width="200"
+                                        Minimum="0" Maximum="90" TickFrequency="5" VerticalAlignment="Center"
+                                        ValueChanged="SliderSidebarTransparency_ValueChanged" />
+                                <TextBlock x:Name="TextSidebarTransparency" Width="48" TextAlignment="Right" FontSize="14"
+                                           FontWeight="Bold" Foreground="#FFE8D6AE" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Style="{StaticResource SettingTitle}" Tag="a.opacity" />
+                                <TextBlock Style="{StaticResource SettingDescription}" Tag="a.opacityd" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                    <Border Style="{StaticResource SettingRow}">
+                        <DockPanel>
+                            <CheckBox x:Name="ToggleAutoPlaySlideshow" DockPanel.Dock="Right" Style="{StaticResource ToggleSwitch}"
+                                      VerticalAlignment="Center" Click="ToggleAutoPlaySlideshow_Click" />
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SettingTitle}" Tag="a.slideshow" />
+                                <TextBlock Style="{StaticResource SettingDescription}" Tag="a.slideshowd" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                </StackPanel>
+
+                <!-- ===== INDIRMELER ===== -->
+                <StackPanel x:Name="SectionDownloads" Visibility="Collapsed">
+                    <TextBlock Style="{StaticResource SectionHeader}" Tag="set.downloads" />
+                    <Border Style="{StaticResource SettingRow}">
+                        <DockPanel>
+                            <CheckBox x:Name="ToggleAutoDownloadUpdates" DockPanel.Dock="Right" Style="{StaticResource ToggleSwitch}"
+                                      VerticalAlignment="Center" Click="ToggleAutoDownloadUpdates_Click" />
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SettingTitle}" Tag="d.auto" />
+                                <TextBlock Style="{StaticResource SettingDescription}" Tag="d.autod" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                    <Border Style="{StaticResource SettingRow}">
+                        <DockPanel>
+                            <CheckBox x:Name="ToggleDefaultInstallLocation" DockPanel.Dock="Right" Style="{StaticResource ToggleSwitch}"
+                                      VerticalAlignment="Center" Click="ToggleDefaultInstallLocation_Click" />
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SettingTitle}" Tag="d.defloc" />
+                                <TextBlock Style="{StaticResource SettingDescription}" Tag="d.deflocd" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                    <Border Style="{StaticResource SettingRow}">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource SettingTitle}" Tag="d.folder" />
+                            <TextBlock Style="{StaticResource SettingDescription}" Tag="d.folderd" />
+                            <DockPanel Margin="0,12,0,0">
+                                <Button x:Name="ButtonChangeFolder" DockPanel.Dock="Right" Style="{StaticResource OutlineButton}"
+                                        Margin="10,0,0,0" Click="ButtonChangeFolder_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.Folder}" Width="15" Height="15"
+                                              Fill="#FFE8D6AE" Margin="0,0,8,0" />
+                                        <TextBlock Tag="d.change" FontWeight="Bold" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <TextBox x:Name="TextInstallFolder" Style="{StaticResource SettingsTextBox}" IsReadOnly="True" />
+                            </DockPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.Database}" Width="14" Height="14"
+                                      Fill="{DynamicResource Theme.Soft}" Margin="0,0,6,0" />
+                                <TextBlock x:Name="TextFreeSpace" FontSize="13" Foreground="{DynamicResource Theme.Soft}" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <!-- ===== OYUN ===== -->
+                <StackPanel x:Name="SectionGame" Visibility="Collapsed">
+                    <TextBlock x:Name="TextGameHeader" Style="{StaticResource SectionHeader}" />
+                    <Border Style="{StaticResource SettingRow}">
+                        <DockPanel>
+                            <Button DockPanel.Dock="Right" Style="{StaticResource OutlineButton}" VerticalAlignment="Center" Click="ButtonOpenGameFolder_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.Folder}" Width="15" Height="15"
+                                          Fill="#FFE8D6AE" Margin="0,0,8,0" />
+                                    <TextBlock Tag="gm.open" FontWeight="Bold" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SettingTitle}" Tag="gm.folder" />
+                                <TextBlock x:Name="TextGameFolder" Style="{StaticResource SettingDescription}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                    <Border Style="{StaticResource SettingRow}">
+                        <StackPanel>
+                            <DockPanel>
+                                <CheckBox x:Name="ToggleLaunchArgs" DockPanel.Dock="Right" Style="{StaticResource ToggleSwitch}"
+                                          VerticalAlignment="Center" Click="ToggleLaunchArgs_Click" />
+                                <StackPanel>
+                                    <TextBlock Style="{StaticResource SettingTitle}" Tag="gm.args" />
+                                    <TextBlock Style="{StaticResource SettingDescription}" Tag="gm.argsd" />
+                                </StackPanel>
+                            </DockPanel>
+                            <TextBox x:Name="TextLaunchArgs" Style="{StaticResource SettingsTextBox}" Margin="0,12,0,0" LostFocus="TextLaunchArgs_LostFocus" />
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource SettingRow}">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource SettingTitle}" Tag="gm.tools" />
+                            <TextBlock Style="{StaticResource SettingDescription}" Tag="gm.toolsd" />
+                            <WrapPanel Margin="0,12,0,0">
+                                <Button Style="{StaticResource GoldButton}" Margin="0,0,10,8" Click="ButtonRepair_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.Wrench}" Width="15" Height="15"
+                                              Fill="#FF0E0C0A" Margin="0,0,8,0" />
+                                        <TextBlock Tag="gm.repair" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Style="{StaticResource OutlineButton}" Margin="0,0,10,8" Click="ButtonLocateGame_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.MapMarker}" Width="15" Height="15"
+                                              Fill="#FFE8D6AE" Margin="0,0,8,0" />
+                                        <TextBlock Tag="gm.locate" FontWeight="Bold" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Style="{StaticResource OutlineButton}" Margin="0,0,10,8" Click="ButtonRegion_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.Web}" Width="15" Height="15"
+                                              Fill="#FFE8D6AE" Margin="0,0,8,0" />
+                                        <TextBlock Tag="gm.region" FontWeight="Bold" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Style="{StaticResource DangerButton}" Margin="0,0,10,8" Click="ButtonUninstall_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.Delete}" Width="15" Height="15"
+                                              Fill="#FFE8836A" Margin="0,0,8,0" />
+                                        <TextBlock Tag="gm.remove" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                            </WrapPanel>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <!-- ===== DEPOLAMA VE DESTEK ===== -->
+                <StackPanel x:Name="SectionSupport" Visibility="Collapsed">
+                    <TextBlock Style="{StaticResource SectionHeader}" Tag="set.storage" />
+                    <Border Style="{StaticResource SettingRow}">
+                        <DockPanel>
+                            <Button DockPanel.Dock="Right" Style="{StaticResource OutlineButton}" VerticalAlignment="Center" Click="ButtonClearCache_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.Delete}" Width="15" Height="15"
+                                          Fill="#FFE8D6AE" Margin="0,0,8,0" />
+                                    <TextBlock Tag="st.clear" FontWeight="Bold" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SettingTitle}" Tag="st.cache" />
+                                <TextBlock Style="{StaticResource SettingDescription}" Tag="st.cached" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                    <Border Style="{StaticResource SettingRow}">
+                        <DockPanel>
+                            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                                <Button Style="{StaticResource OutlineButton}" Margin="0,0,10,0" Click="ButtonOpenLauncherFolder_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.Folder}" Width="15" Height="15"
+                                              Fill="#FFE8D6AE" Margin="0,0,8,0" />
+                                        <TextBlock Tag="gm.open" FontWeight="Bold" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Style="{StaticResource OutlineButton}" Click="ButtonOpenLog_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.FileDocument}" Width="15" Height="15"
+                                              Fill="#FFE8D6AE" Margin="0,0,8,0" />
+                                        <TextBlock Tag="st.errlog" FontWeight="Bold" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SettingTitle}" Tag="st.files" />
+                                <TextBlock Style="{StaticResource SettingDescription}" Tag="st.filesd" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                    <Border Style="{StaticResource SettingRow}">
+                        <DockPanel>
+                            <Button DockPanel.Dock="Right" Style="{StaticResource OutlineButton}" VerticalAlignment="Center" Click="ButtonReportBug_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.Bug}" Width="15" Height="15"
+                                          Fill="#FFE8D6AE" Margin="0,0,8,0" />
+                                    <TextBlock Tag="st.send" FontWeight="Bold" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SettingTitle}" Tag="st.report" />
+                                <TextBlock Style="{StaticResource SettingDescription}" Tag="st.reportd" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                </StackPanel>
+
+                <!-- ===== HAKKINDA ===== -->
+                <StackPanel x:Name="SectionAbout" Visibility="Collapsed">
+                    <TextBlock Style="{StaticResource SectionHeader}" Tag="set.about" />
+                    <Border Style="{StaticResource SettingRow}" Padding="26,22">
+                        <DockPanel>
+                            <Image DockPanel.Dock="Left" Width="72" Height="72" Margin="0,0,20,0" RenderOptions.BitmapScalingMode="HighQuality"
+                                   Source="/Assets/Images/icon.png" />
+                            <Button DockPanel.Dock="Right" Style="{StaticResource GoldButton}" VerticalAlignment="Center" Click="ButtonCheckUpdates_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.Refresh}" Width="15" Height="15"
+                                          Fill="#FF0E0C0A" Margin="0,0,8,0" />
+                                    <TextBlock Tag="ab.check" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock x:Name="TextAppName" FontSize="22" FontWeight="Bold" Foreground="#FFF2E9D8" />
+                                <TextBlock x:Name="TextVersion" FontSize="14" Foreground="{DynamicResource Theme.Muted}" Margin="0,4,0,0" />
+                                <TextBlock x:Name="TextEngineVersion" FontSize="12" Foreground="{DynamicResource Theme.Soft}" Margin="0,2,0,0" />
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                    <Border Style="{StaticResource SettingRow}">
+                        <WrapPanel>
+                            <Button Style="{StaticResource OutlineButton}" Margin="0,0,10,0" Click="ButtonWebsite_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.Web}" Width="15" Height="15"
+                                          Fill="#FFE8D6AE" Margin="0,0,8,0" />
+                                    <TextBlock Tag="ab.website" FontWeight="Bold" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                            <Button Style="{StaticResource OutlineButton}" Margin="0,0,10,0" Click="ButtonTerms_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.FileDocument}" Width="15" Height="15"
+                                          Fill="#FFE8D6AE" Margin="0,0,8,0" />
+                                    <TextBlock Tag="ab.terms" FontWeight="Bold" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                            <Button Style="{StaticResource OutlineButton}" Click="ButtonPrivacy_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.Shield}" Width="15" Height="15"
+                                          Fill="#FFE8D6AE" Margin="0,0,8,0" />
+                                    <TextBlock Tag="ab.privacy" FontWeight="Bold" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                        </WrapPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</views:PageViewBase>
+
+

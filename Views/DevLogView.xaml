@@ -1,0 +1,88 @@
+<views:PageViewBase x:Class="Dolunay2Launcher.Views.DevLogView"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:views="clr-namespace:Dolunay2Launcher.Views"
+                    FontFamily="{StaticResource AppFont}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ThinScrollBar}" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <ItemsControl x:Name="ListDevLog" Margin="0,0,12,0">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="48" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" HorizontalAlignment="Right" Margin="0,18,0,0">
+                            <TextBlock FontSize="22" FontWeight="Bold" Foreground="#FFE8D6AE" HorizontalAlignment="Right" Text="{Binding Version}" />
+                            <TextBlock FontSize="12" Foreground="{DynamicResource Theme.Dim}" HorizontalAlignment="Right" Margin="0,2,0,0" Text="{Binding DateText}" />
+                        </StackPanel>
+                        <Grid Grid.Column="1">
+                            <Rectangle Width="2" Fill="#4DC9AE7C" HorizontalAlignment="Center" />
+                            <Ellipse Width="16" Height="16" Stroke="{DynamicResource Theme.Page}" StrokeThickness="3" VerticalAlignment="Top"
+                                     Margin="0,24,0,0" Fill="{Binding DotBrush}">
+                                <Ellipse.Effect>
+                                    <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="#FFC9AE7C" Opacity="0.6" />
+                                </Ellipse.Effect>
+                            </Ellipse>
+                        </Grid>
+                        <Border Grid.Column="2" Style="{StaticResource PageCard}" CornerRadius="0" BorderThickness="0" Margin="0,8,0,16">
+                            <Grid>
+                                <StackPanel Margin="26,20,40,20">
+                                    <DockPanel LastChildFill="False">
+                                        <TextBlock DockPanel.Dock="Left" FontSize="20" FontWeight="Bold" Foreground="#FFF2E9D8" Text="{Binding Title}" />
+                                        <Border DockPanel.Dock="Left" CornerRadius="4" Padding="8,2" Margin="12,0,0,0" Background="#FFC9AE7C"
+                                                VerticalAlignment="Center" Visibility="{Binding LatestVisibility}">
+                                            <TextBlock Style="{StaticResource BadgeText}" Foreground="#FF0E0C0A" Text="{Binding LatestText}" />
+                                        </Border>
+                                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                                            <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.CodeTags}" Width="14" Height="14"
+                                                  Fill="{DynamicResource Theme.Dim}" Margin="0,0,6,0" />
+                                            <TextBlock FontSize="12" Foreground="{DynamicResource Theme.Dim}" VerticalAlignment="Center" Text="{Binding ChangesText}" />
+                                        </StackPanel>
+                                    </DockPanel>
+                                    <TextBlock FontSize="14" Foreground="{DynamicResource Theme.Dim}" TextWrapping="Wrap" Margin="0,4,0,14"
+                                               Text="{Binding Summary}" Visibility="{Binding SummaryVisibility}" />
+                                    <FlowDocumentScrollViewer Document="{Binding ChangesDoc}" Visibility="{Binding HtmlVisibility}"
+                                                              Background="Transparent" BorderThickness="0" Padding="0" Margin="0,4,0,0"
+                                                              VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled"
+                                                              IsToolBarVisible="False" Focusable="False" />
+                                    <ItemsControl ItemsSource="{Binding Changes}" Visibility="{Binding ListVisibility}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <DockPanel Margin="0,0,0,8">
+                                                    <Border DockPanel.Dock="Left" Width="110" CornerRadius="4" Padding="0,3" Margin="0,0,14,0"
+                                                            VerticalAlignment="Top" Background="#1AFFFFFF" BorderThickness="1" BorderBrush="{Binding TypeBrush}">
+                                                        <TextBlock Style="{StaticResource BadgeText}" HorizontalAlignment="Center" Text="{Binding TypeLabel}"
+                                                                   Foreground="{Binding TypeBrush}" />
+                                                    </Border>
+                                                    <TextBlock FontSize="14" Foreground="#FFDCD2BE" TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding Text}" />
+                                                </DockPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <Button Style="{StaticResource OutlineButton}" HorizontalAlignment="Left" Margin="0,8,0,0" Height="32"
+                                            Tag="{Binding ForumURL}" Visibility="{Binding ForumVisibility}" Click="Button_Forum_Click">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.OpenInNew}" Width="13" Height="13"
+                                                  Fill="#FFE8D6AE" Margin="0,0,8,0" />
+                                            <TextBlock FontSize="13" FontWeight="Bold" Foreground="#FFF2E9D8" VerticalAlignment="Center" Text="{Binding ForumText}" />
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+                                <Border BorderBrush="#FFCCB07A" BorderThickness="2" IsHitTestVisible="False" />
+                                <Image Source="/Resources/Images/Frame/top-right-ex.png" Width="77" Height="77" HorizontalAlignment="Right"
+                                       VerticalAlignment="Top" IsHitTestVisible="False" UseLayoutRounding="True" RenderOptions.EdgeMode="Aliased" />
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </ScrollViewer>
+</views:PageViewBase>

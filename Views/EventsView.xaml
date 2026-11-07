@@ -1,0 +1,162 @@
+<views:PageViewBase x:Class="Dolunay2Launcher.Views.EventsView"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:views="clr-namespace:Dolunay2Launcher.Views"
+                    FontFamily="{StaticResource AppFont}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ThinScrollBar}" />
+            <Style x:Key="SegmentTab" TargetType="{x:Type RadioButton}">
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Height" Value="38" />
+                <Setter Property="Margin" Value="0,0,8,0" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Foreground" Value="{DynamicResource Theme.Muted}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type RadioButton}">
+                            <Border x:Name="pill" CornerRadius="19" Padding="18,0" Background="{DynamicResource Theme.Gradient.Tab}" BorderBrush="{DynamicResource Theme.Line}" BorderThickness="1">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Path x:Name="icon" Width="15" Height="15" Margin="0,0,8,0" Style="{StaticResource VectorIcon}"
+                                          Data="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                                          Fill="{Binding Foreground, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    <ContentPresenter VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="#FFE8D6AE" />
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="pill" Property="Background" Value="#FFC9AE7C" />
+                                    <Setter TargetName="pill" Property="BorderBrush" Value="#FFE8D6AE" />
+                                    <Setter Property="Foreground" Value="#FF1A140C" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="CategoryChip" TargetType="{x:Type RadioButton}">
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Height" Value="32" />
+                <Setter Property="Margin" Value="0,0,8,8" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Foreground" Value="#FFE2D5BB" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type RadioButton}">
+                            <Border x:Name="chip" CornerRadius="16" Padding="12,0" Background="{DynamicResource Theme.Control.C4}" BorderBrush="{DynamicResource Theme.Line}" BorderThickness="1">
+                                <ContentPresenter VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="chip" Property="BorderBrush" Value="#99C9AE7C" />
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="chip" Property="Background" Value="{DynamicResource Theme.Gradient.TabActive}" />
+                                    <Setter TargetName="chip" Property="BorderBrush" Value="#FFC9AE7C" />
+                                    <Setter Property="Foreground" Value="#FFFFFFFF" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="BareButton" TargetType="{x:Type Button}">
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <ContentPresenter />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="StatusHeader" TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="{DynamicResource Theme.Muted}" />
+                <Setter Property="Margin" Value="0,0,0,8" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <ScrollViewer x:Name="Scroller" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="0,0,14,24">
+            <DockPanel Margin="0,0,0,14" LastChildFill="False">
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                    <RadioButton x:Name="TabRoutine" Style="{StaticResource SegmentTab}" GroupName="EventTabs"
+                                 Tag="{StaticResource Icon.NavEvents}" IsChecked="True" Checked="Tab_Checked" />
+                    <RadioButton x:Name="TabSpecial" Style="{StaticResource SegmentTab}" GroupName="EventTabs"
+                                 Tag="{StaticResource Icon.Calendar}" Checked="Tab_Checked" />
+                </StackPanel>
+                <TextBlock x:Name="TextSummary" DockPanel.Dock="Right" VerticalAlignment="Center" FontSize="13"
+                           Foreground="{DynamicResource Theme.Dim}" />
+            </DockPanel>
+
+            <Border Style="{StaticResource PageCard}" Padding="22,16" Margin="0,0,0,14">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center" MinWidth="150">
+                        <TextBlock x:Name="TextClock" Text="00:00:00" FontSize="30" FontWeight="Bold" Foreground="#FFF2E9D8" HorizontalAlignment="Center" />
+                        <TextBlock x:Name="TextClockDay" FontSize="12" Foreground="{DynamicResource Theme.Dim}" HorizontalAlignment="Center" Margin="0,2,0,0" />
+                    </StackPanel>
+                    <Rectangle Grid.Column="1" Width="1" Fill="{DynamicResource Theme.Line}" Margin="22,0" />
+                    <StackPanel Grid.Column="2" Margin="0,0,20,0">
+                        <TextBlock x:Name="LabelActive" Style="{StaticResource StatusHeader}" />
+                        <WrapPanel x:Name="PanelActive" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="3">
+                        <TextBlock x:Name="LabelNext" Style="{StaticResource StatusHeader}" />
+                        <WrapPanel x:Name="PanelNext" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <StackPanel x:Name="RoutineContent">
+                <Grid Margin="0,0,0,12">
+                    <TextBox x:Name="SearchBox" Style="{StaticResource SettingsTextBox}" Height="40" FontSize="14" TextChanged="SearchBox_TextChanged" />
+                    <TextBlock x:Name="SearchPlaceholder" Margin="14,0,0,0" VerticalAlignment="Center" FontSize="14"
+                               Foreground="{DynamicResource Theme.Dim}" IsHitTestVisible="False" />
+                </Grid>
+                <WrapPanel x:Name="PanelCategories" Margin="0,0,0,6" />
+                <Grid x:Name="GridWeek" Margin="0,0,0,14" />
+                <Border Style="{StaticResource PageCard}" Padding="22,16">
+                    <StackPanel x:Name="PanelDayDetail" />
+                </Border>
+            </StackPanel>
+
+            <StackPanel x:Name="SpecialContent" Visibility="Collapsed">
+                <Border Style="{StaticResource PageCard}" Padding="14,10" Margin="0,0,0,12">
+                    <DockPanel>
+                        <Button x:Name="ButtonPrevMonth" DockPanel.Dock="Left" Style="{StaticResource OutlineButton}" Height="34" Padding="12,0" Click="ButtonPrevMonth_Click">
+                            <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.ChevronLeft}" Width="14" Height="14" Fill="#FFF2E9D8" />
+                        </Button>
+                        <Button x:Name="ButtonNextMonth" DockPanel.Dock="Right" Style="{StaticResource OutlineButton}" Height="34" Padding="12,0" Click="ButtonNextMonth_Click">
+                            <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.ChevronRight}" Width="14" Height="14" Fill="#FFF2E9D8" />
+                        </Button>
+                        <TextBlock x:Name="TextMonth" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Foreground="#FFE8C27A" />
+                    </DockPanel>
+                </Border>
+                <UniformGrid x:Name="GridDayNames" Rows="1" Columns="7" Margin="0,0,0,6" />
+                <UniformGrid x:Name="GridMonth" Rows="6" Columns="7" Margin="-4,0,-4,14" />
+                <Border Style="{StaticResource PageCard}" Padding="22,16">
+                    <StackPanel x:Name="PanelSpecialDetail" />
+                </Border>
+            </StackPanel>
+
+            <TextBlock x:Name="TextTimeNote" Margin="2,16,0,0" FontSize="12" Foreground="{DynamicResource Theme.Dim}" TextWrapping="Wrap" />
+        </StackPanel>
+    </ScrollViewer>
+</views:PageViewBase>

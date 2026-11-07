@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>Dolunay2Launcher</AssemblyName>
+    <RootNamespace>Dolunay2Launcher</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <ApplicationIcon>Assets\Images\app.ico</ApplicationIcon>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <AssemblyTitle>Dolunay2 Launcher</AssemblyTitle>
+    <Product>Dolunay2 Global</Product>
+    <Company>Dolunay2</Company>
+    <Version>1.0.0</Version>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="Assets\**\*.*" />
+    <Resource Include="Resources\**\*.*" Exclude="Resources\**\*.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="XamlRadialProgressBar" Version="1.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web"><HintPath>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\System.Web.dll</HintPath></Reference>
+    <Reference Include="System.Web.Extensions"><HintPath>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\System.Web.Extensions.dll</HintPath></Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="patcher.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>
+
+
+

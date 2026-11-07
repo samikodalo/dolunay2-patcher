@@ -1,0 +1,48 @@
+{
+  "profiles": {
+    "Dolunay2 Launcher (Ana Sayfa)": {
+      "commandName": "Project",
+      "commandLineArgs": ""
+    },
+    "Duyurular": {
+      "commandName": "Project",
+      "commandLineArgs": "--page=news"
+    },
+    "Etkinlikler": {
+      "commandName": "Project",
+      "commandLineArgs": "--page=events"
+    },
+    "Dev-Log": {
+      "commandName": "Project",
+      "commandLineArgs": "--page=devlog"
+    },
+    "Ayarlar - Genel": {
+      "commandName": "Project",
+      "commandLineArgs": "--page=settings --setsection=0"
+    },
+    "Ayarlar - Gorunum": {
+      "commandName": "Project",
+      "commandLineArgs": "--page=settings --setsection=1"
+    },
+    "Ayarlar - Indirmeler": {
+      "commandName": "Project",
+      "commandLineArgs": "--page=settings --setsection=2"
+    },
+    "Ayarlar - Oyun": {
+      "commandName": "Project",
+      "commandLineArgs": "--page=settings --setsection=3"
+    },
+    "Ayarlar - Depolama ve Destek": {
+      "commandName": "Project",
+      "commandLineArgs": "--page=settings --setsection=4"
+    },
+    "Ayarlar - Hakkinda": {
+      "commandName": "Project",
+      "commandLineArgs": "--page=settings --setsection=5"
+    },
+    "Daraltilmis Menu": {
+      "commandName": "Project",
+      "commandLineArgs": "--collapsed"
+    }
+  }
+}

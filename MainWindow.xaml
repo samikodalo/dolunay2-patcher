@@ -1,0 +1,377 @@
+﻿<Window x:Class="Dolunay2Launcher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        xmlns:controls="clr-namespace:Dolunay2Launcher.Controls"
+        xmlns:views="clr-namespace:Dolunay2Launcher.Views"
+        Title="DOLUNAY2 Launcher"
+        Width="1280" Height="720"
+        WindowStyle="None" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource Theme.Base}"
+        FontFamily="{StaticResource AppFont}"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True">
+
+    <Window.Resources>
+        <LinearGradientBrush x:Key="DownloadArcBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#FFE8D6AE" Offset="0" />
+            <GradientStop Color="#FFC9AE7C" Offset="1" />
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="DownloadFileArcBrush" Color="#FFA8915F" />
+    </Window.Resources>
+
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="0" ResizeBorderThickness="0" GlassFrameThickness="0" CornerRadius="0" UseAeroCaptionButtons="False" />
+    </shell:WindowChrome.WindowChrome>
+
+    <Grid x:Name="Root" ClipToBounds="True">
+        <Viewbox Stretch="Fill" StretchDirection="Both">
+            <Grid x:Name="LayoutContent" Width="1600" Height="900" ClipToBounds="True">
+                <Grid.Background>
+                    <DrawingBrush Stretch="UniformToFill">
+                        <DrawingBrush.Drawing>
+                            <DrawingGroup>
+                                <ImageDrawing ImageSource="/Resources/Images/Backgrounds/sungma_gray.jpg" Rect="0,0,1920,1337" />
+                                <GeometryDrawing>
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry Rect="0,0,1920,1337" />
+                                    </GeometryDrawing.Geometry>
+                                    <GeometryDrawing.Brush>
+                                        <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+                                            <GradientStop Color="{DynamicResource Theme.Page.Color}" Offset="0" />
+                                            <GradientStop Color="{DynamicResource Theme.Page.F2.Color}" Offset="0.5" />
+                                            <GradientStop Color="{DynamicResource Theme.Page.E6.Color}" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </GeometryDrawing.Brush>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                        </DrawingBrush.Drawing>
+                    </DrawingBrush>
+                </Grid.Background>
+
+                <Image x:Name="BgImage" Stretch="UniformToFill" HorizontalAlignment="Right" VerticalAlignment="Top"
+                       IsHitTestVisible="False" RenderOptions.BitmapScalingMode="HighQuality" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition x:Name="SidebarColumn" Width="260" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- ================= SIDEBAR ================= -->
+                    <Border x:Name="Sidebar" Grid.Column="0" Background="{DynamicResource Theme.Base}" ClipToBounds="True"
+                            MouseLeftButtonDown="DragArea_MouseLeftButtonDown">
+                        <Grid>
+                        <Rectangle Width="1" HorizontalAlignment="Right" Fill="{DynamicResource Theme.Edge}" />
+                        <DockPanel LastChildFill="False" Margin="0,10,0,0">
+                            <Grid x:Name="SidebarHeader" DockPanel.Dock="Top" Height="52" Margin="0,2,0,6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="88" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.Games}" Width="28" Height="28" Fill="#FFD4B57A" />
+                                <TextBlock x:Name="GamesHeader" Grid.Column="1" Text="GAMES" FontFamily="{StaticResource AppFont}"
+                                           FontWeight="Bold" FontSize="20" Foreground="#FFF2E9D8" VerticalAlignment="Center" />
+                            </Grid>
+
+                            <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
+                                <StackPanel Orientation="Vertical" Margin="0,4,0,4">
+                                    <TextBlock x:Name="PlatformLabel" Text="PC Platform" Width="260" HorizontalAlignment="Left"
+                                               FontFamily="{StaticResource AppFont}" FontWeight="Bold" FontSize="12"
+                                               Foreground="{DynamicResource Theme.Muted.99}" Margin="16,0,0,2" />
+                                    <controls:SidebarServerIcon x:Name="GameCard" IsSelected="True" />
+                                </StackPanel>
+                            </StackPanel>
+
+                            <Rectangle DockPanel.Dock="Top" Height="1" Margin="22,8,22,8" Fill="{DynamicResource Theme.Line}" />
+
+                            <StackPanel x:Name="NavStack" DockPanel.Dock="Top" Orientation="Vertical">
+                                <controls:SidebarNavItem x:Name="NavHome" IconData="{StaticResource Icon.NavHome}" Label="Ana Sayfa" ToolTip="Ana Sayfa" IsSelected="True" Clicked="NavHome_Clicked" />
+                                <controls:SidebarNavItem x:Name="NavNews" IconData="{StaticResource Icon.Megaphone}" Label="Duyurular" ToolTip="Duyurular" Clicked="NavNews_Clicked" />
+                                <controls:SidebarNavItem x:Name="NavEvents" IconData="{StaticResource Icon.NavEvents}" Label="Etkinlikler" ToolTip="Etkinlikler" Clicked="NavEvents_Clicked" />
+                                <controls:SidebarNavItem x:Name="NavDevLog" IconData="{StaticResource Icon.NavDevLog}" Label="Dev-Log" ToolTip="Dev-Log" Clicked="NavDevLog_Clicked" />
+                            </StackPanel>
+
+                            <controls:SidebarNavItem x:Name="NavSettings" DockPanel.Dock="Bottom" IconData="{StaticResource Icon.Cog}"
+                                                     SpinIconOnHover="True" Height="78" Label="Ayarlar" ToolTip="Ayarlar" Clicked="NavSettings_Clicked" />
+                        </DockPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- ================= MAIN AREA ================= -->
+                    <Grid x:Name="MainArea" Grid.Column="1" ClipToBounds="True">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="104" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <Grid x:Name="HomePage">
+                                <views:HomeView x:Name="HomeViewCtl" />
+                            </Grid>
+
+                            <Grid x:Name="NewsPage" Visibility="Collapsed" Margin="40,72,40,28">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <controls:PageHeader x:Name="NewsHeader" Grid.Row="0" Margin="0,0,0,20" />
+                                <views:NewsView x:Name="NewsViewCtl" Grid.Row="1" />
+                            </Grid>
+
+                            <Grid x:Name="EventsPage" Visibility="Collapsed" Margin="40,72,40,28">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <controls:PageHeader x:Name="EventsHeader" Grid.Row="0" Margin="0,0,0,20" />
+                                <views:EventsView x:Name="EventsViewCtl" Grid.Row="1" />
+                            </Grid>
+
+                            <Grid x:Name="DevLogPage" Visibility="Collapsed" Margin="40,72,40,28">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <controls:PageHeader x:Name="DevLogHeader" Grid.Row="0" Margin="0,0,0,20" />
+                                <views:DevLogView x:Name="DevLogViewCtl" Grid.Row="1" />
+                            </Grid>
+
+                            <Grid x:Name="SettingsPage" Visibility="Collapsed" Margin="40,72,40,28">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <controls:PageHeader x:Name="SettingsHeader" Grid.Row="0" Margin="0,0,0,20" />
+                                <views:SettingsView x:Name="SettingsViewCtl" Grid.Row="1" />
+                            </Grid>
+                        </Grid>
+
+                        <!-- ================= ALT BAR ================= -->
+                        <Border x:Name="BottomBar" Grid.Row="1" Background="{DynamicResource Theme.Bar.F2}"
+                                BorderBrush="#33C9AE7C" BorderThickness="0,1,0,0">
+                            <Grid Margin="46,0,40,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Button x:Name="PlayBtn" Style="{DynamicResource PlayButtonStyle}" Click="PlayBtn_Click"
+                                            Cursor="Hand" BorderThickness="0" Width="285" Height="89" Tag="Ready">
+                                        <Grid VerticalAlignment="Center" Margin="10,0,10,0">
+                                            <TextBlock x:Name="PlayText" Text="YÜKLE" Foreground="#FF1A140C"
+                                                       FontFamily="{StaticResource FSemiBold}" FontWeight="Bold" FontSize="22" Visibility="Collapsed" />
+                                            <TextBlock Foreground="#73FFFFFF" FontFamily="{StaticResource FSemiBold}" FontWeight="Bold" FontSize="22"
+                                                       IsHitTestVisible="False" Text="{Binding Text, ElementName=PlayText}">
+                                                <TextBlock.RenderTransform><TranslateTransform Y="1" /></TextBlock.RenderTransform>
+                                            </TextBlock>
+                                            <TextBlock Foreground="#59000000" FontFamily="{StaticResource FSemiBold}" FontWeight="Bold" FontSize="22"
+                                                       IsHitTestVisible="False" Text="{Binding Text, ElementName=PlayText}">
+                                                <TextBlock.RenderTransform><TranslateTransform Y="-1" /></TextBlock.RenderTransform>
+                                            </TextBlock>
+                                            <TextBlock Opacity="0.8" FontFamily="{StaticResource FSemiBold}" FontWeight="Bold" FontSize="22"
+                                                       IsHitTestVisible="False" Text="{Binding Text, ElementName=PlayText}"
+                                                       Foreground="{Binding Foreground, ElementName=PlayText}" />
+                                        </Grid>
+                                    </Button>
+                                    <Button x:Name="PauseBtn" Width="56" Height="56" Margin="4,0,0,0" Cursor="Hand"
+                                            Visibility="Collapsed" Click="PauseBtn_Click" ToolTip="Duraklat">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Background" Value="Transparent" />
+                                                <Setter Property="BorderThickness" Value="0" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Border x:Name="pauseBg" Background="Transparent" CornerRadius="5">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                            </Border>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter TargetName="pauseBg" Property="Background" Value="#16FFFFFF" />
+                                                                </Trigger>
+                                                                <Trigger Property="IsPressed" Value="True">
+                                                                    <Setter TargetName="pauseBg" Property="Background" Value="#2AFFFFFF" />
+                                                                </Trigger>
+                                                                <Trigger Property="IsEnabled" Value="False">
+                                                                    <Setter TargetName="pauseBg" Property="Opacity" Value="0.4" />
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </Button.Style>
+                                        <Path x:Name="PauseIcon" Style="{StaticResource VectorIcon}"
+                                              Data="{StaticResource Icon.DownloadPause}" Width="22" Height="22" Fill="#FFF2E9D8" />
+                                    </Button>
+                                    <Button x:Name="GearBtn" Style="{DynamicResource NormalButtonStyle}" Width="56" Height="56"
+                                            Margin="4,0,0,0" Click="GearBtn_Click" ToolTip="{DynamicResource Txt.Gear}">
+                                        <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.Cog}" Width="24" Height="24" Fill="#FFF2E9D8" />
+                                    </Button>
+                                </StackPanel>
+
+                                <DockPanel Grid.Column="1" Margin="24,0,24,0" VerticalAlignment="Center" LastChildFill="True">
+                                    <Grid x:Name="DownloadProgressGroup" DockPanel.Dock="Left" Width="72" Height="72"
+                                          VerticalAlignment="Center" Visibility="Collapsed">
+                                        <controls:RadialProgressBar x:Name="OverallProgressBg" Width="72" Height="72" Value="100"
+                                                                   ArcWidth="6" TrackWidth="8" TrackBrush="#26005B53" ProgressBrush="#26C9AE7C" />
+                                        <controls:RadialProgressBar x:Name="OverallProgress" Width="72" Height="72" Value="0"
+                                                                   ArcWidth="6" TrackWidth="8" TrackBrush="Transparent"
+                                                                   ProgressBrush="{StaticResource DownloadArcBrush}" />
+                                        <controls:RadialProgressBar x:Name="FileProgressBg" Width="54" Height="54" Value="100"
+                                                                   ArcWidth="4" TrackWidth="6" TrackBrush="#268A7450" ProgressBrush="#268A7450" />
+                                        <controls:RadialProgressBar x:Name="FileProgress" Width="54" Height="54" Value="0"
+                                                                   ArcWidth="4" TrackWidth="6" TrackBrush="Transparent"
+                                                                   ProgressBrush="{StaticResource DownloadFileArcBrush}" />
+                                        <TextBlock x:Name="ProgressPercent" Text="0%" Foreground="#FFFFFFFF"
+                                                   FontFamily="{StaticResource AppFont}" FontSize="13" FontWeight="Bold"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
+                                    </Grid>
+                                    <StackPanel VerticalAlignment="Center" Margin="14,0,0,0">
+                                        <TextBlock x:Name="StatusText" Text="" Foreground="#FFFFFFFF" FontSize="16"
+                                                   FontFamily="{StaticResource AppFont}" FontWeight="Bold"
+                                                   TextTrimming="CharacterEllipsis" />
+                                        <TextBlock x:Name="StatusDetail" Text="" Foreground="{DynamicResource Theme.Muted}"
+                                                   FontSize="13" FontFamily="{StaticResource AppFont}" FontWeight="Bold"
+                                                   TextTrimming="CharacterEllipsis" />
+                                        <TextBlock x:Name="FilesCountText" Text="" Foreground="#FFAFAFAF" FontSize="12"
+                                                   FontFamily="{StaticResource AppFont}" />
+                                        <StackPanel x:Name="LocateRow" Orientation="Horizontal" Margin="0,2,0,0">
+                                            <TextBlock x:Name="LocatePrompt" Text="Oyun kurulu mu?" Foreground="#FFAFAFAF"
+                                                       FontSize="13" FontFamily="{StaticResource AppFont}" Margin="0,0,5,0" />
+                                            <TextBlock x:Name="LocateLink" Text="Oyunu bul" Foreground="#FFE8D6AE"
+                                                       FontSize="13" FontFamily="{StaticResource AppFont}" Cursor="Hand"
+                                                       MouseLeftButtonDown="LocateBtn_Click" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DockPanel>
+
+                                <Grid Grid.Column="2" VerticalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,2,6">
+                                        <Border Width="7" Height="7" CornerRadius="3.5" Background="#FF24FF00" VerticalAlignment="Center" />
+                                        <TextBlock x:Name="OnlineText" Text="Çevrimiçi" FontSize="12" FontFamily="{StaticResource AppFont}"
+                                                   FontWeight="Bold" Foreground="#FF24FF00" Margin="6,0,0,0" ToolTip="Server Status" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Button x:Name="WebsiteBtn" Style="{StaticResource OutlineButton}" Margin="0,0,8,0" Click="WebsiteBtn_Click">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.Web}" Width="16" Height="16" Fill="#FFE8D6AE" Margin="0,0,8,0" />
+                                                <TextBlock x:Name="WebsiteText" Text="Web Sitesi" FontSize="14" FontWeight="Bold"
+                                                           Foreground="#FFF2E9D8" VerticalAlignment="Center" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button x:Name="PatchBtn" Style="{StaticResource OutlineButton}" Margin="0,0,8,0" Click="PatchBtn_Click">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.FileDocument}" Width="15" Height="15" Fill="#FFE8D6AE" Margin="0,0,8,0" />
+                                                <TextBlock x:Name="PatchText" Text="Yama Notları" FontSize="14" FontWeight="Bold"
+                                                           Foreground="#FFF2E9D8" VerticalAlignment="Center" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button x:Name="ThemeBtn" Style="{DynamicResource NormalButtonStyle}" Width="38" Height="38" Margin="0,0,8,0"
+                                                Padding="0" Click="ThemeBtn_Click" ToolTip="Görünüm ayarları">
+                                            <Path Style="{StaticResource VectorIcon}" Data="{StaticResource IcoSun}" Width="18" Height="18" Fill="#FFF2E9D8" />
+                                        </Button>
+                                        <Button x:Name="FolderBtn" Style="{DynamicResource NormalButtonStyle}" Width="38" Height="38"
+                                                Padding="0" Click="FolderBtn_Click" ToolTip="Oyun klasörünü aç">
+                                            <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.FolderFill}" Width="18" Height="18" Fill="#FFF2E9D8" />
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </Border>
+
+                        <!-- ================= UST BAR ================= -->
+                        <Grid x:Name="Topside" Grid.Row="0" VerticalAlignment="Top" Height="72" Background="#00000000"
+                              MouseLeftButtonDown="DragArea_MouseLeftButtonDown">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,28,0">
+                                <Button x:Name="TopLang" Style="{StaticResource TopBarIconButton}" ToolTip="Dil" Click="TopLang_Click">
+                                    <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.Translate}" Width="18" Height="18" Fill="#FFF2E9D8" />
+                                </Button>
+                                <Button x:Name="TopRefresh" Style="{StaticResource TopBarIconButton}" ToolTip="Yenile" Click="TopRefresh_Click">
+                                    <Path x:Name="RefreshIcon" Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.Refresh}" Width="18" Height="18" Fill="#FFF2E9D8" />
+                                </Button>
+                                <Rectangle Width="1" Height="20" Fill="{DynamicResource Theme.Muted.40}" Margin="10,0" />
+                                <Button x:Name="TopMin" Style="{StaticResource TopBarBareButton}" ToolTip="Küçült" Click="TopMin_Click">
+                                    <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.Minimize}" Width="16" Height="16"
+                                          Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
+                                </Button>
+                                <Button x:Name="TopClose" Style="{StaticResource TopBarBareCloseButton}" Margin="4,0,0,0" ToolTip="Kapat" Click="TopClose_Click">
+                                    <Path Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.Close}" Width="16" Height="16"
+                                          Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Grid>
+
+                <Button x:Name="CollapseBtn" Width="28" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top"
+                        Margin="244,26,0,0" Panel.ZIndex="60" Click="CollapseBtn_Click" ToolTip="Menüyü daralt">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Ellipse x:Name="circle" Fill="{DynamicResource Theme.Sunken}" Stroke="{DynamicResource Theme.Edge}" StrokeThickness="1" />
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="circle" Property="Fill" Value="{DynamicResource Theme.Selected}" />
+                                    <Setter TargetName="circle" Property="Stroke" Value="{DynamicResource Theme.Line}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Path x:Name="CollapseIcon" Style="{StaticResource VectorIcon}" Data="{StaticResource Icon.ChevronDoubleRight}"
+                          Width="14" Height="14" Fill="#FFE8D6AE" />
+                </Button>
+            </Grid>
+        </Viewbox>
+
+        <ProgressBar x:Name="DownloadProgressBar" Height="6" VerticalAlignment="Bottom" Minimum="0" Maximum="100"
+                     Value="0" Visibility="Collapsed" Panel.ZIndex="210" IsHitTestVisible="False">
+            <ProgressBar.Template>
+                <ControlTemplate TargetType="{x:Type ProgressBar}">
+                    <Border BorderBrush="#FF8A7450" BorderThickness="0,1,0,0" Background="#FF160D0D">
+                        <Grid x:Name="PART_Track">
+                            <Grid x:Name="PART_Indicator" HorizontalAlignment="Left">
+                                <Grid.Background>
+                                    <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                        <GradientStop Color="#FF6E070B" Offset="0" />
+                                        <GradientStop Color="#FFC8121A" Offset="0.55" />
+                                        <GradientStop Color="#FFFF4438" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </ProgressBar.Template>
+        </ProgressBar>
+
+        <Grid x:Name="UpdateOverlay" Background="#D9000000" Visibility="Collapsed" Panel.ZIndex="200">
+            <Border Width="430" Padding="26" CornerRadius="10" Background="{DynamicResource Theme.Panel}"
+                    BorderBrush="#55C9AE7C" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel>
+                    <TextBlock x:Name="UpdateTitle" Text="Launcher güncelleniyor..." FontFamily="{StaticResource AppFont}"
+                               FontWeight="Bold" FontSize="17" Foreground="#FFF2E9D8" />
+                    <TextBlock x:Name="UpdateSub" Text="Yeni sürüm indiriliyor..." FontSize="12" Foreground="{DynamicResource Theme.Muted}"
+                               Margin="0,5,0,16" TextWrapping="Wrap" />
+                    <Grid Height="10">
+                        <Border Background="{DynamicResource Theme.Sunken}" CornerRadius="5" />
+                        <Border x:Name="UpdateFill" Width="0" HorizontalAlignment="Left" Background="#FFC9AE7C" CornerRadius="5" />
+                    </Grid>
+                    <TextBlock x:Name="UpdatePercent" Text="%0" FontFamily="{StaticResource AppFont}" FontWeight="Bold"
+                               FontSize="12" Foreground="#FFE8D6AE" HorizontalAlignment="Right" Margin="0,7,0,0" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
+

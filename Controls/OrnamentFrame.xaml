@@ -1,0 +1,25 @@
+<UserControl x:Class="Dolunay2Launcher.Controls.OrnamentFrame"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             IsHitTestVisible="False" Focusable="False">
+    <Grid UseLayoutRounding="True" RenderOptions.EdgeMode="Aliased">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="77" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="77" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="77" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="77" />
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0" Grid.Column="0" Source="/Resources/Images/Frame/top-left.png" Stretch="Fill" />
+        <Image Grid.Row="0" Grid.Column="2" Source="/Resources/Images/Frame/top-right.png" Stretch="Fill" />
+        <Image Grid.Row="2" Grid.Column="0" Source="/Resources/Images/Frame/bottom-left.png" Stretch="Fill" />
+        <Image Grid.Row="2" Grid.Column="2" Source="/Resources/Images/Frame/bottom-right.png" Stretch="Fill" />
+        <Image Grid.Row="0" Grid.Column="1" Source="/Resources/Images/Frame/top-line.png" Stretch="Fill" Height="10" VerticalAlignment="Top" />
+        <Image Grid.Row="2" Grid.Column="1" Source="/Resources/Images/Frame/bottom-line.png" Stretch="Fill" Height="10" VerticalAlignment="Bottom" />
+        <Image Grid.Row="1" Grid.Column="0" Source="/Resources/Images/Frame/left-line.png" Stretch="Fill" Width="10" HorizontalAlignment="Left" />
+        <Image Grid.Row="1" Grid.Column="2" Source="/Resources/Images/Frame/right-line.png" Stretch="Fill" Width="10" HorizontalAlignment="Right" />
+    </Grid>
+</UserControl>
