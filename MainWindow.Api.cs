@@ -10,6 +10,7 @@ namespace Dolunay2Launcher
     {
         string _baseUrl = "https://dolunay2global.com";
         MfManifest _mf;
+        bool _gameMaintenance;
 
         async Task InitAsync()
         {
@@ -48,6 +49,7 @@ namespace Dolunay2Launcher
         void ApplyManifest(MfManifest m)
         {
             _mf = m;
+            ApplyGameStatus(m.game_maintenance);
             ApplyRemovals();
 
             if (!string.IsNullOrEmpty(m.title)) Title = m.title + " Launcher";
@@ -103,6 +105,35 @@ namespace Dolunay2Launcher
                 var n = m.announcements[0];
                 _tray.ShowBalloonTip(2500, m.title, _en ? n.title_en : n.title_tr, System.Windows.Forms.ToolTipIcon.Info);
                 _notified = true;
+            }
+        }
+
+        void ApplyGameStatus(bool maintenance)
+        {
+            _gameMaintenance = maintenance;
+            if (OnlineText == null) return;
+
+            var color = Brush(maintenance ? "#FFD65A2E" : "#FF24FF00");
+            OnlineText.Text = maintenance ? T("maintenance") : T("online");
+            OnlineText.Foreground = color;
+            OnlineText.ToolTip = maintenance ? T("maintenance.tip") : "Server Status";
+            if (OnlineDot != null) OnlineDot.Background = color;
+        }
+
+        async Task RefreshGameStatusAsync()
+        {
+            try
+            {
+                var wc = new WebClient { Encoding = System.Text.Encoding.UTF8 };
+                wc.Headers.Add("User-Agent", "Dolunay2Launcher/1.0");
+                string json = await wc.DownloadStringTaskAsync(_baseUrl + "/patcher/status");
+                var ser = new JavaScriptSerializer { MaxJsonLength = 1024 * 64 };
+                var st = ser.Deserialize<MfGameStatus>(json);
+                if (st != null) ApplyGameStatus(st.game_maintenance);
+            }
+            catch (Exception ex)
+            {
+                Log.Info("status fail: " + ex.Message);
             }
         }
 

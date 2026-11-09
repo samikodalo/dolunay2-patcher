@@ -85,6 +85,15 @@ namespace Dolunay2Launcher
         public string url = "";
     }
 
+    public class MfGameStatus
+    {
+        public bool game_maintenance;
+        public int server_status;
+        public long shutdown_at;
+        public long reopen_at;
+        public long now;
+    }
+
     public class MfManifest
     {
         public string title = "DOLUNAY2";
@@ -95,6 +104,7 @@ namespace Dolunay2Launcher
         public string args = "";
         public bool force = true;
         public bool maintenance;
+        public bool game_maintenance;
         public MfLinks links = new MfLinks();
         public List<MfSlide> slides = new List<MfSlide>();
         public List<MfNews> announcements = new List<MfNews>();

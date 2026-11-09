@@ -216,6 +216,14 @@ namespace Dolunay2Launcher
             };
             updateTimer.Start();
 
+            // Oyun bakim durumunu 30 saniyede bir kontrol et.
+            var statusTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(30) };
+            statusTimer.Tick += async (s, e) =>
+            {
+                try { await RefreshGameStatusAsync(); } catch (Exception) { }
+            };
+            statusTimer.Start();
+
             Loaded += async (s2, e2) =>
             {
                 InitTray();
@@ -284,7 +292,7 @@ namespace Dolunay2Launcher
             NavSettings.ToolTip = NavSettings.Label;
 
             if (PlayText != null) PlayText.Text = _ready ? T("play.play") : T("play.install");
-            OnlineText.Text = T("online");
+            ApplyGameStatus(_gameMaintenance);
             WebsiteText.Text = T("website");
             PatchText.Text = T("patchnotes");
             LocatePrompt.Text = T("locate1");
