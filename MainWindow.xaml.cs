@@ -216,8 +216,8 @@ namespace Dolunay2Launcher
             };
             updateTimer.Start();
 
-            // Oyun bakim durumunu 30 saniyede bir kontrol et.
-            var statusTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(30) };
+            // Oyun bakim durumunu 2 saniyede bir kontrol et.
+            var statusTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(2) };
             statusTimer.Tick += async (s, e) =>
             {
                 try { await RefreshGameStatusAsync(); } catch (Exception) { }

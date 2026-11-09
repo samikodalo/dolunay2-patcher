@@ -11,6 +11,7 @@ namespace Dolunay2Launcher
         string _baseUrl = "https://dolunay2global.com";
         MfManifest _mf;
         bool _gameMaintenance;
+        bool _statusRefreshing;
 
         async Task InitAsync()
         {
@@ -122,6 +123,8 @@ namespace Dolunay2Launcher
 
         async Task RefreshGameStatusAsync()
         {
+            if (_statusRefreshing) return;
+            _statusRefreshing = true;
             try
             {
                 var wc = new WebClient { Encoding = System.Text.Encoding.UTF8 };
@@ -134,6 +137,10 @@ namespace Dolunay2Launcher
             catch (Exception ex)
             {
                 Log.Info("status fail: " + ex.Message);
+            }
+            finally
+            {
+                _statusRefreshing = false;
             }
         }
 
